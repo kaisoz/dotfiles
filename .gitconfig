@@ -1,0 +1,70 @@
+# vim: filetype=gitconfig
+
+[core]
+editor=vim
+excludesfile = ~/.gitignore_global
+
+[user]
+name = Tomás Tormo
+email = tomas.tormo@gmail.com
+
+[alias]
+ba = branch
+ci = commit
+co = checkout
+di = diff --color
+lo = log --oneline
+cp = cherry-pick
+st = status -uno
+
+# Merge using meld
+meld = mergetool -t meld
+
+# Creates a stash with name $(date) and applies it again
+snap = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+
+# Creates a tgz with a patch of the current changes
+tarball = "!git archive HEAD $* --format=tgz > $*-`git rev-parse --short HEAD`.tgz"
+
+# Adds a description to a branch
+editdesc = branch --edit-description
+
+# Shows the current branch description
+showcurbadesc = "!sh -c \"git config branch.`git ba | grep \\* | sed 's/^\\*\\ \\(.*\\)/\\1/g'`.description\""
+
+# Shows the description of the branch provided as an argument
+showbadesc = "!sh -c \"test $1 && git config branch.$1.description\""
+
+# If receives a branch name, shows that branch description, otherwise shows the current branch description
+showdesc = "!sh -c \"if test $1; then git showbadesc $1; else git showcurbadesc; fi;\""
+
+# Shows all repository files relative to the current folder
+repofiles = ls-tree --name-only -r HEAD
+
+# Shows remote and local branches
+ba-all = !git ba && git ba -r
+
+# Clones from a SVN repo using the standard layout. Adds svn/ to all remote branches
+svn-clone = "!sh -c \"git svn clone --prefix=svn/ --stdlayout $1\""
+
+# Creates a local branch which tracks a remote SVN branch
+svn-co = "!sh -c \"git checkout -b `echo $1 | sed 's|/|-|g'` $1\""
+
+svn-cp = "!sh -c \"URL=`git svn info | sed 's/URL:\\ \\(.*\\)/\\1/;tx;d;:x'`; echo $URL\""
+
+[color]
+ui = auto
+[diff]
+tool = meld
+[difftool]
+prompt = false
+[push]
+default = upstream
+
+[sendemail]
+from = Tomás Tormo <tomas.tormo@gmail.com>
+smtpEncryption = tls
+smtpServer = smtp.gmail.com
+smtpUser = tomas.tormo@gmail.com
+chainreplyto=false
+smtpServerPort = 587

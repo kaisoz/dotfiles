@@ -1,0 +1,69 @@
+" vim: filetype=vim
+
+" --------
+" VRAPPERC
+" --------
+
+"Resources
+"----------
+" https://github.com/justinmk/config/blob/master/.vrapperrc
+" http://evans-stuff.blogspot.com/2007/10/it-seems-that-im-not-only-one-still.html
+" https://github.com/vrapper/vrapper/issues/265#issuecomment-22112349
+
+
+set ignorecase      " Enable insensitive search
+set smartcase       " Do case sensitive search in case capital letters are found
+set hlsearch        " Highlight search results
+
+set incsearch       " Incremental search
+set number          " Show line numbers
+
+" Recommended config for Kernel development
+"set tabstop=8
+"set shiftwidth=8
+"set softtabstop=8
+
+" Default configuration
+set tabstop=4       " tab == 4 spaces
+set shiftwidth=4    " Use 4 spaces for indentation
+set softtabstop=4   " Backspace deletes 4 spaces
+
+set autoindent      " Indent inserted lines
+set smartindent     " Allow the editor to indent new lines
+set list            " Show whitespace characters
+set autochdir       " Sets working dir to the parent of the current opened file
+set cleanindent     " Clean autoindent if the new line is empty
+
+set contentassistmode " Enable moving through the connect assist dropdown
+
+inoremap jk <ESC>
+" ; == :
+noremap ; :
+" Search with -
+noremap - /
+" Open file
+nnoremap <C-n> :e
+" Code format
+nnoremap <F5> :format<cr>
+" Tabs
+noremap <C-J> :tabp<CR>
+nnoremap <C-k> :tabn<CR>
+nnoremap <C-u> :tabclose<CR>
+
+" Y copies until end of line, instead of the whole line
+nnoremap Y y$
+
+" Delete lines, words, etc without copying
+nnoremap ,d "_d
+nnoremap ,dd "_dd
+nnoremap ,dw "_dw
+nnoremap ,d$ "_d$
+
+nnoremap ,c "_c
+nnoremap ,cc "_cc
+nnoremap ,cw "_cw
+nnoremap ,c$ "_c$
+
+" Toggle breakpoint
+eclipseaction eclipsetogglebp org.eclipse.debug.ui.commands.ToggleBreakpoint
+nnoremap <C-b> :eclipsetogglebp<cr>
